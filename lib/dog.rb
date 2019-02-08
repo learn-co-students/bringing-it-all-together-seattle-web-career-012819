@@ -67,10 +67,10 @@ class Dog
 
     results = DB[:conn].execute(sql, hash_info[:name], hash_info[:breed])
     if !results.empty?
-      rows = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")
-      dog_hash = {name: rows[1], breed: rows[2]}
+      puts results
+      dog_hash = {name: results[0][1], breed: results[0][2]}
       new_dog = Dog.new(dog_hash)
-      new_dog.id = rows[0][0]
+      new_dog.id = results[0][0]
       new_dog
     else
       create(hash_info)
